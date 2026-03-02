@@ -1,8 +1,8 @@
-# Binaries
+# Binaries (only root-level build outputs)
 easy-proxies
 easy-proxies-*
-easy_proxies
-easy_proxies-*
+/easy_proxies
+/easy_proxies-*
 *.exe
 
 # Configuration (contains sensitive data)
