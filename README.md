@@ -53,14 +53,14 @@ cp ./config.example.yaml ./config.yaml
 
 ### 4) 访问管理面板
 默认访问地址：
-- `http://127.0.0.1:9091`（本机）
-- 或 `http://<服务器IP>:9091`
-
+- `http://127.0.0.1:9888`（本机）
+- 或 `http://<服务器IP>:9888`
+- 默认密码：`123456`
 > 默认管理监听来自配置项 `management.listen`，默认值见 `config.example.yaml`。
 
 ---
 
-## 🪟 Windows EXE 使用方法
+## 💻 Windows EXE 使用方法
 
 ### 1) 准备文件
 把下面两个文件放到同一目录：
@@ -75,7 +75,7 @@ cp ./config.example.yaml ./config.yaml
 
 ### 3) 访问管理面板
 浏览器打开：
-- `http://127.0.0.1:9091`
+- `http://127.0.0.1:9888`
 
 ---
 
@@ -85,7 +85,7 @@ cp ./config.example.yaml ./config.yaml
 
 - `mode`: `pool` / `multi-port` / `hybrid`
 - `listener`: 代理入口监听与认证
-- `management.listen`: Web 管理面板地址（默认 `0.0.0.0:9091`）
+- `management.listen`: Web 管理面板地址（默认 `0.0.0.0:9888`）
 - `management.password`: 面板登录密码（为空则不需要登录）
 - `subscriptions` / `nodes_file` / `nodes`: 节点来源（三选一或混用）
 
@@ -118,20 +118,6 @@ go build -tags "with_utls with_quic with_grpc with_wireguard with_gvisor" -o eas
 docker build -t easy-proxies:latest .
 docker compose up -d
 ```
-
----
-
-## 🤖 GitHub Actions 自动发布说明
-
-当前已配置工作流：仅在推送 `v*` 标签时触发自动构建（Linux + Windows）并创建 Release。
-
-示例：
-```bash
-git tag -a v1.0.0 -m "release v1.0.0"
-git push origin v1.0.0
-```
-
----
 
 ## 📁 目录结构简述
 
