@@ -132,10 +132,50 @@ go build -tags "with_utls with_quic with_grpc with_wireguard with_gvisor" -o eas
 
 如果你偏好容器部署，可使用现成的 `Dockerfile` 与 `docker-compose.yml`：
 
+### 本地构建
+
 ```bash
 docker build -t easy-proxies:latest .
 docker compose up -d
 ```
+
+### 使用 GitHub Container Registry（GHCR）镜像
+
+仓库已配置 GitHub Actions 自动构建并推送多架构镜像到 GHCR，支持：
+
+- `linux/amd64`
+- `linux/arm64`
+
+默认镜像地址：
+
+```bash
+ghcr.io/assast/easyproxiesv2:latest
+```
+
+拉取并运行示例：
+
+```bash
+docker pull ghcr.io/assast/easyproxiesv2:latest
+docker run -d \
+  --name easy-proxies \
+  -p 9091:9091 \
+  -p 2323:2323 \
+  -p 24000-24200:24000-24200 \
+  -v $(pwd)/config.yaml:/etc/easy-proxies/config.yaml \
+  -v $(pwd)/data:/etc/easy-proxies/data \
+  ghcr.io/assast/easyproxiesv2:latest
+```
+
+### 自动构建与推送规则
+
+GitHub Actions 会按以下规则处理 Docker 镜像：
+
+- **push 到 `main`**：自动构建并推送
+  - `ghcr.io/assast/easyproxiesv2:latest`
+  - `ghcr.io/assast/easyproxiesv2:sha-<shortsha>`
+- **push 版本标签 `v*`**：额外发布版本标签
+  - 例如 `v1.2.3` → `v1.2.3`、`1.2.3`、`1.2`、`1`
+- **pull request**：只构建校验，不推送镜像
 
 ## 📁 目录结构简述
 
